@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Socket } from 'socket.io-client';
-import type { GameState, Room, PlayerSymbol } from '../types/game';
+import type { Room, PlayerSymbol } from '../types/game';
 import { Chat } from './Chat/Chat';
-import { GameBoard } from './GameBoard';
+import { GameBoard } from './GameBoard/GameBoard';
 import { GameHeader } from './GameHeader/GameHeader';
 import { GameStatusBanner } from './GameStatusBanner';
 import { PlayersInfo } from './PlayersInfo';
+import { useGameRoom } from '../hooks/useGameRoom';
 
 interface GameRoomProps {
   room: Room;
@@ -20,90 +21,38 @@ export const GameRoom: React.FC<GameRoomProps> = ({
   currentPlayerId,
   onLeaveRoom,
 }) => {
-  const [gameState, setGameState] = useState<GameState>(room.gameState);
-  const [copied, setCopied] = useState(false);
+  const {
+    gameState,
+    copied,
+    canStartGame,
+    isGameOver,
+    startGame,
+    resetGame,
+    makeMove,
+    copyRoomCode,
+  } = useGameRoom(room, socket);
 
-  const currentPlayer = room.players.find(
-    (player) => player.symbol === currentPlayerId,
-  );
-
-  const handleGameStarted = (updatedRoom: Room) => {
-    setGameState(updatedRoom.gameState);
-  };
-
-  const handleGameUpdated = (updatedGaameState: GameState) => {
-    setGameState(updatedGaameState);
-  };
-
-  const handleGameReset = (updatedGameState: GameState) => {
-    setGameState(updatedGameState);
-  };
-
-  useEffect(() => {
-    socket?.on('game-started', handleGameStarted);
-    socket?.on('game-updated', handleGameUpdated);
-    socket?.on('game-reset', handleGameReset);
-    return () => {
-      socket?.off('game-started', handleGameStarted);
-      socket?.off('game-updated', handleGameUpdated);
-      socket?.off('game-reset', handleGameReset);
-    };
-  }, [socket]);
-
-  const handleStartGame = () => {
-    socket?.emit('start-game', room.code);
-  };
-
-  const handleResetGame = () => {
-    socket?.emit('reset-game', room.code);
-  };
-
-  const handleCopyRoomCode = async () => {
-    try {
-      await navigator.clipboard.writeText(room.code);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy room code:', err);
-    }
-  };
-
-  const canStartGame = room.players.length === 2 && !gameState.gameStarted;
-  const isGameOver = gameState.winner || gameState.isDraw;
+  const currentPlayer = room.players.find((p) => p.symbol === currentPlayerId);
   const isCurrentPlayerTurn =
     gameState.gameStarted && gameState.currentPlayer === currentPlayer?.symbol;
 
   const getGameStatusMessage = () => {
-    if (!gameState.gameStarted) {
+    if (!gameState.gameStarted)
       return room.players.length < 2
         ? 'Waiting for another player...'
         : 'Ready to start!';
-    }
-
-    if (gameState.isDraw) {
-      return "It's a draw! 🤝";
-    }
-
+    if (gameState.isDraw) return "It's a draw! 🤝";
     if (gameState.winner) {
       const winnerPlayer = room.players.find(
         (p) => p.symbol === gameState.winner,
       );
       return `${winnerPlayer?.name?.split(' ')?.[0]} wins! 🎉`;
     }
-
     const currentTurnPlayer = room.players.find(
       (p) => p.symbol === gameState.currentPlayer,
     );
     return `${currentTurnPlayer?.name}'s turn`;
   };
-
-  const handleMove = (position: number) => {
-    socket?.emit('make-move', {
-      roomCode: room.code,
-      position,
-    });
-  };
-
   return (
     <div className='relative min-h-screen overflow-hidden bg-linear-to-br from-indigo-900 via-purple-900 to-pink-900'>
       <GameHeader
@@ -111,10 +60,10 @@ export const GameRoom: React.FC<GameRoomProps> = ({
         copied={copied}
         isGameOver={!!isGameOver}
         isGameStarted={gameState.gameStarted}
-        onCopyRoomCode={handleCopyRoomCode}
+        onCopyRoomCode={copyRoomCode}
         onLeaveRoom={onLeaveRoom}
-        onStartGame={handleStartGame}
-        onResetGame={handleResetGame}
+        onStartGame={startGame}
+        onResetGame={resetGame}
         playersCount={room.players.length}
         roomCode={room.code}
       />
@@ -138,7 +87,7 @@ export const GameRoom: React.FC<GameRoomProps> = ({
             <div className='flex flex-1 items-center justify-center'>
               <GameBoard
                 gameState={gameState}
-                onMove={handleMove}
+                onMove={makeMove}
                 disabled={
                   !gameState.gameStarted || !!isGameOver || !isCurrentPlayerTurn
                 }
