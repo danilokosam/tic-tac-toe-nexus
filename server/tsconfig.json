@@ -15,8 +15,11 @@
         "noFallthroughCasesInSwitch": true,
         "skipLibCheck": true,
         "outDir": "../dist/server",
-        "baseUrl": "../",
+        "baseUrl": ".",
         "rootDir": ".",
+        "paths": {
+            "@/*": ["*"]
+        },
         "ignoreDeprecations": "6.0"
     },
     "include": ["./**/*.ts"],

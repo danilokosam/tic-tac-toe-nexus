@@ -1,6 +1,6 @@
 import { Server, Socket } from 'socket.io';
-import { generateRoomCode, createGameState } from '../gameLogic';
-import type { Room, JoinRoomData, ChatMessage } from '../types';
+import { generateRoomCode, createGameState } from '@/gameLogic.js';
+import type { Room, JoinRoomData, ChatMessage } from '@/types.js';
 
 export const handleRoomEvents = (
   io: Server,

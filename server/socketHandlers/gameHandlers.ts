@@ -1,6 +1,6 @@
 import { Server, Socket } from 'socket.io';
-import { checkWinner, createGameState } from '../gameLogic';
-import type { Room, MakeMoveData } from '../types';
+import { checkWinner, createGameState } from '@/gameLogic.js';
+import type { Room, MakeMoveData } from '@/types.js';
 
 export const handleGameEvents = (
   io: Server,

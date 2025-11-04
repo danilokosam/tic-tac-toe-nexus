@@ -5,7 +5,7 @@ import { createServer } from 'http';
 import path from 'path';
 import { Server } from 'socket.io';
 import { fileURLToPath } from 'url';
-import { setupSocketHandlers } from './socketHandler.js';
+import { setupSocketHandlers } from '@/socketHandler.js';
 
 dotenv.config();
 

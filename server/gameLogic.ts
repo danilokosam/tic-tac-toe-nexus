@@ -1,4 +1,4 @@
-import { GameState } from './types';
+import { GameState } from '@/types.js';
 
 export const createGameState = (): GameState => ({
   board: Array(9).fill(null),

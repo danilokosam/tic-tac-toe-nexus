@@ -1,5 +1,5 @@
 import { Server, Socket } from 'socket.io';
-import type { Room, ChatMessage } from 'server/types';
+import type { Room, ChatMessage } from '@/types.js';
 
 export const handleDisconnect = (
   io: Server,
