@@ -9,7 +9,6 @@ export const useSocket = () => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    if (socket) return;
     const socketConnection = io(socketUrl, {
       reconnectionAttempts: 3,
     });
@@ -28,7 +27,15 @@ export const useSocket = () => {
     socketConnection.on('error', (error) => {
       console.error('Socket error:', error);
     });
-  }, [socket]);
+
+    return () => {
+      console.log('User disconnected from socket server 😿');
+      socketConnection.off('connect');
+      socketConnection.off('disconnect');
+      socketConnection.off('error');
+      socketConnection.disconnect();
+    };
+  }, []);
 
   return { socket, isConnected };
 };
