@@ -1,9 +1,9 @@
 import { Crown, Zap } from 'lucide-react';
-import type { GameState, Room, PlayerSymbol } from '../types/game';
+import type { GameState, Room,  } from '../types/game';
 
 interface PlayerInfoProps {
   room: Room;
-  currentPlayerId: PlayerSymbol;
+  currentPlayerId: string;
   gameState: GameState;
 }
 

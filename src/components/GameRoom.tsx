@@ -1,6 +1,6 @@
 import React from 'react';
 import { Socket } from 'socket.io-client';
-import type { Room, PlayerSymbol } from '../types/game';
+import type { Room } from '../types/game';
 import { Chat } from './Chat/Chat';
 import { GameBoard } from './GameBoard/GameBoard';
 import { GameHeader } from './GameHeader/GameHeader';
@@ -11,7 +11,7 @@ import { useGameRoom } from '../hooks/useGameRoom';
 interface GameRoomProps {
   room: Room;
   socket: Socket | null;
-  currentPlayerId: PlayerSymbol;
+  currentPlayerId: string;
   onLeaveRoom: () => void;
 }
 
@@ -32,7 +32,16 @@ export const GameRoom: React.FC<GameRoomProps> = ({
     copyRoomCode,
   } = useGameRoom(room, socket);
 
-  const currentPlayer = room.players.find((p) => p.symbol === currentPlayerId);
+  console.log('🧠 Debug GameRoom:');
+  console.log('socket.id ->', socket?.id);
+  console.log('currentPlayerId prop ->', currentPlayerId);
+  console.log('room.players ->', room.players);
+  console.log('gameState ->', gameState);
+  console.log('winner ->', gameState.winner);
+  console.log('current turn ->', gameState.currentPlayer);
+  const currentPlayer = room.players.find((p) => p.id === currentPlayerId);
+  console.log("currentPlayer found ->", currentPlayer);
+
   const isCurrentPlayerTurn =
     gameState.gameStarted && gameState.currentPlayer === currentPlayer?.symbol;
 
@@ -77,7 +86,7 @@ export const GameRoom: React.FC<GameRoomProps> = ({
               message={getGameStatusMessage()}
             />
             <PlayersInfo
-              currentPlayerId={(currentPlayer?.id as PlayerSymbol) || 'X'}
+              currentPlayerId={currentPlayer?.id || ''}
               gameState={gameState}
               room={room}
             />
