@@ -1,5 +1,5 @@
 import { Server, Socket } from 'socket.io';
-import type { ChatMessage, Room, SendMessageData } from '@/types.js';
+import type { ChatMessage, Room, SendMessageData } from '../types.js';
 
 export const handleChatEvents = (
   io: Server,

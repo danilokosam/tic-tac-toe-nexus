@@ -17,9 +17,6 @@
         "outDir": "../dist/server",
         "baseUrl": ".",
         "rootDir": ".",
-        "paths": {
-            "@/*": ["*"]
-        },
     },
     "include": ["./**/*.ts"],
     "exclude": ["../node_modules", "../dist"]

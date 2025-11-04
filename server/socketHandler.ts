@@ -1,9 +1,9 @@
 import { Server, Socket } from 'socket.io';
-import type { Room, ChatMessage } from '@/types.js';
-import { handleRoomEvents } from '@/socketHandlers/roomHandlers.js';
-import { handleChatEvents } from '@/socketHandlers/chatHandlers.js';
-import { handleGameEvents } from '@/socketHandlers/gameHandlers.js';
-import { handleDisconnect } from '@/socketHandlers/disconnectedHandler.js';
+import type { Room, ChatMessage } from './types.js';
+import { handleRoomEvents } from './socketHandlers/roomHandlers.js';
+import { handleChatEvents } from './socketHandlers/chatHandlers.js';
+import { handleGameEvents } from './socketHandlers/gameHandlers.js';
+import { handleDisconnect } from './socketHandlers/disconnectedHandler.js';
 
 const rooms = new Map<string, Room>();
 const chatMessages = new Map<string, ChatMessage[]>();
