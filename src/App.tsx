@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { GameRoom } from './components/GameRoom';
 import { HomePage } from './components/HomePage/HomePage';
 import { useSocket } from './hooks/useSocket';
-import type { PlayerSymbol, Room } from './types/game';
+import type { Room } from './types/game';
 
 function App() {
   const { socket, isConnected } = useSocket();
@@ -85,7 +85,7 @@ function App() {
         <GameRoom
           room={currentRoom}
           socket={socket}
-          currentPlayerId={(socket?.id as PlayerSymbol) || 'X'}
+          currentPlayerId={socket?.id || ''}
           onLeaveRoom={handleLeaveRoom}
         />
       ) : (
