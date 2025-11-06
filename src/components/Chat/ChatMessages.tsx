@@ -41,7 +41,7 @@ export const ChatMessages = ({
               }`}
             >
               <div
-                className={`max-w-[85%] rounded-xl p-4 transition-all duration-300 hover:scale-105 ${
+                className={`max-w-[85%] rounded-xl p-4 transition-all duration-300 ${
                   msg.playerName === currentPlayerName
                     ? 'border border-purple-400/40 bg-linear-to-br from-purple-500/30 to-pink-500/30'
                     : 'border border-white/20 bg-white/15'

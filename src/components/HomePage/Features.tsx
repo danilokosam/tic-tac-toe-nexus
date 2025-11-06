@@ -7,9 +7,9 @@ export const Features: React.FC = () => {
       {featuresData.map(({ icon, title, description, bgGlow, iconBg }, i) => (
         <article key={i} className='group relative'>
           <div
-            className={`absolute inset-0 bg-linear-to-r ${bgGlow} rounded-2xl blur-xl transition-all duration-300 group-hover:blur-2xl`}
+            className={`absolute inset-0 bg-linear-to-r ${bgGlow} rounded-2xl blur-xl transition-all duration-500 ease-out group-hover:blur-2xl`}
           />
-          <div className='relative rounded-2xl border border-white/20 bg-white/10 p-8 backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:border-white/30 hover:shadow-2xl'>
+          <div className='relative rounded-2xl border border-white/20 bg-white/10 p-8 backdrop-blur-xl transition-all duration-500 ease-out hover:scale-[1.01] hover:border-white/30 hover:shadow-2xl'>
             <div
               className={`bg-linear-to-br ${iconBg} mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-xl shadow-lg`}
             >

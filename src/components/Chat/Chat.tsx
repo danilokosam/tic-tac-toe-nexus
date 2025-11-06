@@ -15,7 +15,7 @@ export const Chat = ({ roomCode, currentPlayerName, socket }: ChatProps) => {
   const chat = useChat({ socket, roomCode, currentPlayerName });
   return (
     <div
-      className={`fixed top-0 right-0 h-dvh transform border-l border-white/20 bg-linear-to-b from-white/5 to-white/10 backdrop-blur-xl transition-all duration-300 md:static md:h-full ${
+      className={`fixed top-0 right-0 h-screen transform border-l border-white/20 bg-linear-to-b from-white/5 to-white/10 backdrop-blur-xl transition-all duration-300 md:static md:h-full ${
         chat.isSideBarOpen
           ? 'w-full translate-x-0 sm:w-[350px]'
           : 'w-0 translate-x-full'

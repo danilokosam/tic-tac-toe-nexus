@@ -40,7 +40,7 @@ export const GameRoom: React.FC<GameRoomProps> = ({
   console.log('winner ->', gameState.winner);
   console.log('current turn ->', gameState.currentPlayer);
   const currentPlayer = room.players.find((p) => p.id === currentPlayerId);
-  console.log("currentPlayer found ->", currentPlayer);
+  console.log('currentPlayer found ->', currentPlayer);
 
   const isCurrentPlayerTurn =
     gameState.gameStarted && gameState.currentPlayer === currentPlayer?.symbol;
@@ -63,7 +63,7 @@ export const GameRoom: React.FC<GameRoomProps> = ({
     return `${currentTurnPlayer?.name}'s turn`;
   };
   return (
-    <div className='relative min-h-screen overflow-hidden bg-linear-to-br from-indigo-900 via-purple-900 to-pink-900'>
+    <div className='relative min-h-screen overflow-hidden bg-linear-to-br from-gray-950 via-black to-purple-950'>
       <GameHeader
         canStartGame={canStartGame}
         copied={copied}

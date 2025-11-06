@@ -31,7 +31,7 @@ export const GameHeader: React.FC<GameHeaderProps> = ({
   return (
     <header className='flex h-[70px] w-full items-center justify-between gap-4 overflow-x-auto border-b border-white/20 bg-white/10 px-4 shadow-2xl backdrop-blur-xl sm:px-10'>
       <div className='mx-auto flex w-full max-w-7xl items-center justify-between gap-4'>
-        <div className='flex w-full items-center justify-between gap-6 md:w-auto'>
+        <div className='flex w-full items-center justify-between gap-4 md:w-auto'>
           <HomeButton onLeaveRoom={onLeaveRoom} />
 
           {playersCount < 2 ? (

@@ -15,7 +15,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   onJoinRoom,
 }) => {
   return (
-    <div className='relative min-h-screen overflow-hidden bg-linear-to-br from-indigo-900 via-purple-900 to-pink-900'>
+    <div className='relative min-h-screen overflow-hidden bg-linear-to-br from-gray-950 via-black to-purple-950'>
       <AnimatedBackground showParticles />
       <div className='relative z-10 flex min-h-screen flex-col items-center justify-center p-4'>
         <Header />

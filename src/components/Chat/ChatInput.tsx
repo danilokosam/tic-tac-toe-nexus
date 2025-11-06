@@ -54,7 +54,7 @@ export const ChatInput = ({
                   key={i}
                   type='button'
                   onClick={() => addEmoji(emoji)}
-                  className='rounded-lg p-2 text-3xl hover:scale-125 hover:bg-white/20'
+                  className='mx-auto cursor-pointer rounded-lg text-3xl hover:scale-125 hover:bg-white/20'
                 >
                   {emoji}
                 </button>
